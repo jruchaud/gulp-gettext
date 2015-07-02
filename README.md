@@ -1,13 +1,13 @@
-# gulp-gettext
+# gulp-gettext-parser
 Task for Gulp to extract gettext string with acorn. ES6 and JSX are supported.
 
 Installation
 ============
 
-`npm install gulp-gettext --save-dev`
+`npm install gulp-gettext-parser --save-dev`
 
 ```js
-var gettext = require("gulp-gettext")
+var gettext = require("gulp-gettext-parser")
 ```
 
 Example
