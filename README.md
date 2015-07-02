@@ -14,7 +14,7 @@ Example
 =======
 
 ```js
-var gettext = require("gulp-gettext");
+var gettext = require("gulp-gettext-parser");
 var rename = require("gulp-rename");
 
 gulp.task("gettext", function() {
