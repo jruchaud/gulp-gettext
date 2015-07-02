@@ -28,9 +28,9 @@ gulp.task("gettext", function() {
 API
 ===
 
-### `gettext()` ###
+### `gettext(options)` ###
 
-Take as parameter the function list to extract form js.
+Take as parameter the functions list to extract from js.
 
 ```js
 gettext({
