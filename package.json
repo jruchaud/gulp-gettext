@@ -1,6 +1,6 @@
 {
   "name": "gulp-gettext-parser",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Task for Gulp to extract gettext string with acorn.",
   "main": "index.js",
   "scripts": {
