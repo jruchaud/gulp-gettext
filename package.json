@@ -1,0 +1,33 @@
+{
+  "name": "gulp-gettext",
+  "version": "1.0.0",
+  "description": "Task for Gulp to extract gettext string with acorn.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jruchaud/gulp-gettext.git"
+  },
+  "keywords": [
+    "gulp",
+    "gettext",
+    "acorn"
+  ],
+  "author": "jruchaud",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jruchaud/gulp-gettext/issues"
+  },
+  "homepage": "https://github.com/jruchaud/gulp-gettext#readme",
+  "devDependencies": {
+    "acorn-jsx": "^2.0.0",
+    "gettext-parser": "^1.1.1",
+    "through2": "^2.0.0"
+  },
+  "dependencies": {
+    "acorn": "^2.0.4",
+    "gulp-util": "^3.0.6"
+  }
+}
