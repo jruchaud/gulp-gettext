@@ -67,7 +67,7 @@ module.exports = function(opts) {
     headers["plural-forms"] = headers["plural-forms"] || DEFAULT_HEADERS["plural-forms"];
     headers["content-type"] = headers["content-type"] || DEFAULT_HEADERS["content-type"];
 
-    var nplurals = /nplurals=(\d)/.exec(headers["plural-forms"])[1];
+    var nplurals = /nplurals ?= ?(\d)/.exec(headers["plural-forms"])[1];
 
     var transform = through.obj(function(file, encoding, cb) {
 
