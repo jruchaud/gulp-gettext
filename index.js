@@ -21,7 +21,7 @@ var DEFAULT_FUNCTION_NAMES = {
 
 var DEFAULT_HEADERS = {
     "content-type": "text/plain; charset=UTF-8",
-    "plural-forms": "nplurals = 2; plural = (n != 1);"
+    "plural-forms": "nplurals = 2; plural = (n !== 1);"
 };
 
 var jsxBase = {
