@@ -100,8 +100,8 @@ module.exports = function(opts) {
 
                             if (name === "msgid_plural") {
                                 translate.msgstr = [];
-                                for (var i = 0; i < nplurals; i ++) {
-                                    translate.msgstr[i] = "";
+                                for (var p = 0; p < nplurals; p++) {
+                                    translate.msgstr[p] = "";
                                 }
                             }
                         }
