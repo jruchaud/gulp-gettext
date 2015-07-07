@@ -8,7 +8,16 @@ var acorn = require("acorn-jsx");
 var walk = require("acorn/dist/walk");
 var gutil = require("gulp-util");
 
-var DEFAULT_FUNCTION_NAMES = ["gettext", "dgettext", "ngettext", "dngettext", "pgettext", "dpgettext", "npgettext", "dnpgettext"];
+var DEFAULT_FUNCTION_NAMES = {
+    gettext: ["msgid"],
+    dgettext: ["domain", "msgid"],
+    ngettext: ["msgid", "msgid_plural", "count"],
+    dngettext: ["domain", "msgid", "msgid_plural", "count"],
+    pgettext: ["msgctxt", "msgid"],
+    dpgettext: ["domain", "msgctxt", "msgid"],
+    npgettext: ["msgctxt", "msgid", "msgid_plural", "count"],
+    dnpgettext: ["domain", "msgctxt", "msgid", "msgid_plural", "count"]
+};
 
 var jsxBase = {
     JSXElement(node, st, c) {
@@ -35,7 +44,7 @@ Object.setPrototypeOf(jsxBase, walk.base);
 
 module.exports = function(opts) {
 
-    var functionNames = opts.functionNames || DEFAULT_FUNCTION_NAMES;
+    var functionNames = opts.functionNames || DEFAULT_FUNCTION_NAMES;
 
     var data = {
         charset: "UTF-8",
@@ -50,7 +59,7 @@ module.exports = function(opts) {
             }
         }
     };
-    var context = data.translations.context;
+    var defaultContext = data.translations.context;
 
     var transform = through.obj(function(file, encoding, cb) {
 
@@ -64,21 +73,38 @@ module.exports = function(opts) {
 
         walk.simple(ast, {
             CallExpression: function(node) {
-                if (functionNames.indexOf(node.callee.name) !== -1
-                    || node.callee.property && functionNames.indexOf(node.callee.property.name) !== -1) {
+                if (functionNames.hasOwnProperty(node.callee.name)
+                    || node.callee.property && functionNames.hasOwnProperty(node.callee.property.name)) {
+
+                    var functionName = functionNames[node.callee.name] || functionNames[node.callee.property.name];
+                    var translate = {};
 
                     var args = node.arguments;
-
                     for (var i = 0, l = args.length; i < l; i++) {
-                        var arg = args[i];
-                        var value = arg.value;
+                        var name = functionName[i];
 
-                        if (value) {
-                            context[value] = {
-                                msgid: value
-                            };
+                        if (name && name !== "count" && name !== "domain") {
+                            var arg = args[i];
+                            var value = arg.value;
+
+                            if (value) {
+                                translate[name] = value;
+                            }
+
+                            if (name === "msgid_plural") {
+                                translate.msgstr = ["", ""];
+                            }
                         }
                     }
+
+                    var context = defaultContext;
+                    var msgctxt = translate.msgctxt;
+                    if (msgctxt) {
+                        data.translations[msgctxt] = data.translations[msgctxt] || {};
+                        context = data.translations[msgctxt];
+                    }
+
+                    context[translate.msgid] = translate;
                 }
             }
         }, jsxBase);

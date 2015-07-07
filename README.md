@@ -30,11 +30,14 @@ API
 
 ### `gettext(options)` ###
 
-Take as parameter the functions list to extract from js.
+Take as parameter the functions list to extract from js. You have to precise where found the parameters
+("domain", "msgctxt", "msgid", "msgid_plural" and "count") to be extract.
 
 ```js
 gettext({
-    functionNames: ["t"]
+    functionNames: {
+        myfunction: ["msgid"]
+    }
 })
 ```
 
