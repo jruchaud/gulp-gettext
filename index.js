@@ -19,6 +19,11 @@ var DEFAULT_FUNCTION_NAMES = {
     dnpgettext: ["domain", "msgctxt", "msgid", "msgid_plural", "count"]
 };
 
+var DEFAULT_HEADERS = {
+    "content-type": "text/plain; charset=UTF-8",
+    "plural-forms": "nplurals=2; plural=(n!=1);"
+};
+
 var jsxBase = {
     JSXElement(node, st, c) {
         node.openingElement.attributes.forEach(function(attr) {
@@ -49,10 +54,7 @@ module.exports = function(opts) {
     var data = {
         charset: "UTF-8",
 
-        headers: {
-            "content-type": "text/plain; charset=UTF-8",
-            "plural-forms": "nplurals=2; plural=(n!=1);"
-        },
+        headers: opts.headers || DEFAULT_HEADERS,
 
         translations: {
             context: {
@@ -60,6 +62,11 @@ module.exports = function(opts) {
         }
     };
     var defaultContext = data.translations.context;
+
+    var headers = data.headers;
+    headers["plural-forms"] = headers["plural-forms"] || DEFAULT_HEADERS["plural-forms"];
+
+    var nplurals = /nplurals=(\d)/.exec(headers["plural-forms"])[1];
 
     var transform = through.obj(function(file, encoding, cb) {
 
@@ -92,7 +99,10 @@ module.exports = function(opts) {
                             }
 
                             if (name === "msgid_plural") {
-                                translate.msgstr = ["", ""];
+                                translate.msgstr = [];
+                                for (var i = 0; i < nplurals; i ++) {
+                                    translate.msgstr[i] = "";
+                                }
                             }
                         }
                     }

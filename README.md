@@ -41,6 +41,17 @@ gettext({
 })
 ```
 
+Takes as parameter the headers to put in the po file.
+
+```js
+gettext({
+    headers: {
+        "content-type": "text/plain; charset=UTF-8",
+        "plural-forms": "nplurals=2; plural=(n!=1);"
+    }
+})
+```
+
 License
 =======
 
