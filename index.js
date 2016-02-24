@@ -49,12 +49,12 @@ Object.setPrototypeOf(jsxBase, walk.base);
 
 module.exports = function(opts) {
 
-    var functionNames = opts.functionNames || DEFAULT_FUNCTION_NAMES;
+    var functionNames = opts && opts.functionNames || DEFAULT_FUNCTION_NAMES;
 
     var data = {
         charset: "UTF-8",
 
-        headers: opts.headers || DEFAULT_HEADERS,
+        headers: opts && opts.headers || DEFAULT_HEADERS,
 
         translations: {
             context: {
