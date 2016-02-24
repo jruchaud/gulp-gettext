@@ -24,6 +24,7 @@ var DEFAULT_HEADERS = {
     "plural-forms": "nplurals = 2; plural = (n !== 1);"
 };
 
+// https://github.com/RReverser/acorn-jsx/issues/23
 var jsxBase = {
     JSXElement(node, st, c) {
         node.openingElement.attributes.forEach(function(attr) {
@@ -43,6 +44,8 @@ var jsxBase = {
     },
     JSXSpreadAttribute(node, st, c) {
         c(node.argument, st, node.argument.type);
+    },
+    JSXEmptyExpression() {
     }
 };
 Object.setPrototypeOf(jsxBase, walk.base);

@@ -4,7 +4,7 @@
   "description": "Task for Gulp to extract gettext string with acorn.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --full-trace"
   },
   "repository": {
     "type": "git",
@@ -22,10 +22,14 @@
   },
   "homepage": "https://github.com/jruchaud/gulp-gettext#readme",
   "dependencies": {
-    "acorn-jsx": "^2.0.0",
+    "acorn-jsx": "^2.0.1",
     "gettext-parser": "^1.1.1",
     "through2": "^2.0.0",
     "acorn": "^2.0.4",
     "gulp-util": "^3.0.6"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "mocha": "^2.4.5"
   }
 }
